@@ -1,0 +1,191 @@
+<html>
+<head>
+	<link rel="stylesheet" href="serenix_treeview.css"/>
+    <script type="text/javascript" src="serenix_yaml.js"></script>
+	<script type="text/javascript" src="serenix_css_base.js"></script>
+	<script type="text/javascript" src="serenix_css_box_model.js"></script>
+	<script type="text/javascript" src="serenix_html_utils.js"></script>
+	<script type="text/javascript" src="serenix_org_chart.js"></script>
+</head>
+
+<body>
+<script type ="text/javascript">
+var yaml = "---"
+    + "\n# An employee record"
+    + "\nname: Martin D'vloper"
+    + "\njob: Developer"
+    + "\nskill: Elite"
+    + "\nemployed: True"
+    + "\nfoods:"
+    + "\n  - Apple"
+    + "\n  - Orange"
+    + "\n  - Strawberry"
+    + "\n  - Mango"
+    + "\nlanguages:"
+    + "\n  perl: Elite"
+    + "\n  python: Elite"
+    + "\n  pascal: Lame"
+    + "\neducation: |"
+    + "\n  4 GCSEs"
+    + "\n  3 A-Levels"
+    + "\n  BSc in the Internet of Things";
+	
+	var o = YAML.parse(yaml);
+	console.log(o);
+	var yaml2 = "--- # The Smiths"
+	+ "\n- {name: John Smith, age: 33}"
+	+ "\n- name: Mary Smith"
+	+ "\n  age: 27"
+	+ "\n- [name, age]: [Rae Smith, 4]   # sequences as keys are supported"
+	+ "\n--- # People, by gender"
+	+ "\nmen: [John Smith, Bill Jones]"
+	+ "\nwomen:"
+	+ "\n  - Mary Smith"
+	+ "\n  - Susan Williams"
+	
+	var y2 = YAML.parse(yaml2);
+	console.log(yaml2);
+	console.log(y2);
+	
+	var yaml3 = "---"
+    + "\nreceipt:     Oz-Ware Purchase Invoice"
+    + "\ndate:        2012-08-06"
+    + "\ncustomer:"
+    + "\n	first_name:   Dorothy"
+    + "\n	family_name:  Gale"
+    + "\n"
+    + "\n\nitems:"
+    + "\n	- part_no:   A4786"
+    + "\n	  descrip:   Water Bucket (Filled)"
+    + "\n	  price:     1.47"
+    + "\n	  quantity:  4"
+    + "\n"
+    + "\n	- part_no:   E1628"
+    + "\n	  descrip:   High Heeled \"Ruby\" Slippers"
+    + "\n	  size:      8"
+    + "\n	  price:     133.7"
+    + "\n	  quantity:  1"
+    + "\n"
+     + "\n\nbill-to:  &id001"
+    + "\n	street: |"
+    + "\n			123 Tornado Alley"
+    + "\n			Suite 16"
+    + "\n	city:   East Centerville"
+    + "\n	state:  KS"
+    + "\n"
+    + "\n\nship-to:  *id001"
+    + "\n"
+    + "\n\nspecialDelivery:  >"
+    + "\n	Follow the Yellow Brick"
+    + "\n	Road to the Emerald City."
+    + "\n	Pay no attention to the"
+    + "\n	man behind the curtain."
+    + "\n\npicture: !!binary |"
+    + "\n  R0lGODdhDQAIAIAAAAAAANn"
+    + "\n  Z2SwAAAAADQAIAAACF4SDGQ"
+    + "\n  ar3xxbJ9p0qa7R0YxwzaFME"
+    + "\n  1IAADs="
+    + "\n...";
+	
+	yaml3 = YAML.parse(yaml3);
+	console.log(yaml3);
+	
+	var yaml4 = "--- # Sequencer protocols for Laser eye surgery"
+    + "\n- step:  &id001                  # defines anchor label &id001"
+    + "\n	instrument:      Lasik 2000"
+    + "\n	pulseEnergy:     5.4"
+    + "\n	pulseDuration:   12"
+    + "\n	repetition:      1000"
+    + "\n	spotSize:        1mm"
+    + "\n"
+    + "\n- step: &id002"
+    + "\n	instrument:      Lasik 2000"
+    + "\n	pulseEnergy:     5.0"
+    + "\n	pulseDuration:   10"
+    + "\n	repetition:      500"
+    + "\n	spotSize:        2mm"
+    + "\n- step: *id001                   # refers to the first step (with anchor &id001)"
+    + "\n- step: *id002                   # refers to the second step"
+    + "\n- step: *id002"
+	+ "\n- step: *id001                   # refers to the first step (with anchor &id001)"
+    + "\n- step: *id001                   # refers to the second step"
+    + "\n- step: *id002";
+	
+	yaml4 = YAML.parse(yaml4);
+	console.log(yaml4);
+	
+	var afpOrg = "CTO:"
+    + "\n    - Software Factory and R&D Manager:"
+    + "\n        - UX Team:"
+    + "\n            - Team Lead"
+    + "\n            - UX Architect"
+    + "\n            - UX Reseacher"
+    + "\n            - Front end developers"
+    + "\n        - Backend Team:"
+    + "\n            - Team Lead"
+    + "\n            - Middle stack developers"
+    + "\n            - Backend engineers"
+    + "\n        - QA Team:"
+    + "\n            - QA Lead"
+    + "\n            - QA Analyst"
+    + "\n            - Testers"
+    + "\n        - Data Team:"
+    + "\n            - Business Intelligence"
+    + "\n            - Data analyst/Data scientist"
+    + "\n            - Big Data"
+    + "\n        - Urbaniste SI/Architecte fonctionnel"
+    + "\n        - IT Analyst"
+    + "\n        - Software Architect"
+    + "\n        - R&D"
+    + "\n    - Plateforms & Production Manager:"
+    + "\n        - Service Desk Team:"
+    + "\n            - Incident Management"
+    + "\n            - Service Request Management"
+    + "\n            - Problem Management"
+    //+ "\n            - Gestionnaire parc informatique / postes de travail (antivirus, configuration, customisation des postes de travail en fonction des postes, activation des licences, ...)"
+	//+ "\n            - Gestionnaire parc informatique / postes de travail"
+	+ "\n            - Gestionnaire parc informatique"
+    + "\n            - Codeless customisation"
+    + "\n            - Software Asset Management"
+    + "\n            - End users training"
+    + "\n        - Application Management (Support Niveau 2):"
+    + "\n            - Gestion des habilitations"
+    + "\n            - Exploitation logicielle (CBS, CRM, GLPI, applications internes...)"
+    + "\n            - Software Asset Management"
+	//+ "\n        - DevOps Team (Support Niveau 2):"
+    + "\n        - DevOps Team:"
+	//+ "\n            - Cloud Architect/System Administrator"
+    + "\n            - Cloud Architect/ Administrator"
+    //+ "\n            - System Administrator (Servers, Operation Systems, ...)"
+	+ "\n            - System Administrator"
+    //+ "\n            - Network and Firewall administrator (troubeshooting, analyse des traces, diagrammes de flux, règles de sécurité)"
+	+ "\n            - Network and Firewall administrator"
+    + "\n            - Database Administration"
+    //+ "\n            - Backup management (VMs, Disks, Databases)"
+	+ "\n            - Backup management"
+    + "\n            - Automation Architect"
+    //+ "\n            - DevOps Engineer/Site Reliability Engineer (Change Management, release Management, CI/CD, architectures, ...)"
+	+ "\n            - DevOps Engineer/Site Reliability Engineer"
+    + "\n    - Cybersecurity Team"
+    + "\n    - PMO";
+	
+	afpOrg = YAML.parse(afpOrg);
+	console.log(afpOrg);
+	
+	var lvl = { orientation: "vertical", subTreePosition: "right" };
+	var chart = new OrgChart(afpOrg, {
+	    groupLeafs: 'contigous',
+		/*levels: {
+			3: lvl,
+			4: lvl
+		}*/
+		levels: {
+			3: { elementsAsList: true }
+		}
+	});
+	
+	chart.draw();
+	
+</script>
+</body>
+</html>
